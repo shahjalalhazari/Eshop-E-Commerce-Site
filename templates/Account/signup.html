@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block TitleBlock %}Signup - {% endblock  %}
+
+{% block BodyBlock %}
+<div class="row">
+    <div class="col-md-3"></div>
+
+    <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-1"></div>
+                <div class="col-md-10">
+                    <div class="card mt-5 mb-5">
+                        <div class="card-header text-center pt-4 pb-4">
+                            <h2>Create Account</h2>
+                        </div>
+                        <div class="card-body">
+                            <form method="POST" action="" class="pt-4 pb-4">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    <input type="email" name="email" class="form-control" placeholder="Enter Valid Email" Value="">
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" name="password1" class="form-control" placeholder="Enter Password" Value="">
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" name="password2" class="form-control" placeholder="Enter Confirm Password" Value="">
+                                </div>
+                                <div class="button">
+                                    <input type="submit"class="btn btn-primary btn-md btn-block" value="Create Account" >
+                                </div>
+                            </form>
+                        </div>
+                        <div class="card-footer text-center pt-4">
+                            <h5>
+                                Already have an account?
+                                <br>
+                                <a href="#">Login here</a>
+                            </h5>
+                        </div>
+                    </div>
+                </div>
+            <div class="col-md-1"></div>
+        </div>
+    </div>
+    <div class="col-md-3"></div>
+</div>
+
+{% endblock %} 
