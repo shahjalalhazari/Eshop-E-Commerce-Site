@@ -10,37 +10,43 @@
     <div class="col-md-6">
         <div class="row">
             <div class="col-md-1"></div>
-                <div class="col-md-10">
-                    <div class="card mt-5 mb-5">
-                        <div class="card-header text-center pt-4 pb-4">
-                            <h2>Create Account</h2>
-                        </div>
-                        <div class="card-body">
-                            <form method="POST" action="" class="pt-4 pb-4">
-                                {% csrf_token %}
-                                <div class="form-group">
-                                    <input type="email" name="email" class="form-control" placeholder="Enter Valid Email" Value="">
-                                </div>
-                                <div class="form-group">
-                                    <input type="password" name="password1" class="form-control" placeholder="Enter Password" Value="">
-                                </div>
-                                <div class="form-group">
-                                    <input type="password" name="password2" class="form-control" placeholder="Enter Confirm Password" Value="">
-                                </div>
-                                <div class="button">
-                                    <input type="submit"class="btn btn-primary btn-md btn-block" value="Create Account" >
-                                </div>
-                            </form>
-                        </div>
-                        <div class="card-footer text-center pt-4">
-                            <h5>
-                                Already have an account?
-                                <br>
-                                <a href="#">Login here</a>
-                            </h5>
-                        </div>
+            <div class="col-md-10">
+                <div class="card mt-5">
+                    <div class="card-header text-center pt-4 pb-4">
+                        <h2>Create Account</h2>
+                    </div>
+                    <div class="card-body">
+                        <form method="POST" action="{% url 'account:signup' %}" class="pt-4 pb-4">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <input class="form-control" type="email" name="email" value="{{ data.email }}" placeholder="Email">
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" type="password" name="password1" placeholder="Passowrd">
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" type="password" name="password2" placeholder="Confirm Password">
+                            </div>
+                            <div class="button">
+                                <input type="submit" class="btn btn-primary btn-md btn-block" value="Create Account">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="card-footer text-center">
+                        <small class="py-3 text-muted">
+                            By signing up, you agree to our Terms and Conditions.
+                        </small>
                     </div>
                 </div>
+                <div class="card mt-3 text-center">
+                    <div class="card-body">
+                        <h5>Already have an account?
+                            <br>
+                            <a href="#" style="font-weight:800; padding-top:10px;">Login Here</a>
+                        </h5>
+                    </div>
+                </div>
+            </div>
             <div class="col-md-1"></div>
         </div>
     </div>

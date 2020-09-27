@@ -8,7 +8,9 @@
   <title>{% block TitleBlock %}{% endblock %}Eshop - eCommerce -Develope by Shahjalal Hazari</title>
   <link rel="icon" type="image/png" href="{% static 'img/favicon.png' %}">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">  <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.css" rel="stylesheet">
   <link href="{% static 'css/mdb.min.css' %}" rel="stylesheet">
   <link href="{% static 'css/style.min.css' %}" rel="stylesheet">
   <style type="text/css">
@@ -22,6 +24,9 @@
     text-align: center;
     margin-top: 30px;
   }
+  .product-cart img{
+    height: 250px;
+  }
   </style>
 </head>
 
@@ -29,22 +34,39 @@
   {% include 'navbar.html' %}
 
   <!--Main layout-->
-  <main style="margin-top: 80px;">
+  <main style="margin: 80px 0px;">
     <div class="container">
+      <!-- messages -->
+      <div class="messages container mt-2">
+        {% if messages %}
+          {% for message in messages %}
+            <div {% if message.tags %} class="alert alert-{{message.tags}}" {% endif %} role="alert">
+              {{ message }}
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+          {% endfor %}
+        {% endif %}
+      </div>
+      <!-- messages -->
+
+      <!--Content-->
       {% block BodyBlock %}
     
       {% endblock %}
+      <!--Content-->
     </div>
-  </main>
+  </main>  
   <!--Main layout-->
 
   <!--Footer-->
-  <footer class="page-footer text-center font-small mt-4 wow fadeIn">
+  <footer class="page-footer text-center mt-4 wow fadeIn">
     <hr class="my-4">
     <!-- Social icons -->
     <div class="pb-4">
       <a href="https://github.com/shajalalhazari1" target="_blank">
-        <i class="fab fa-github mr-3"></i>
+        <i class="fab fa-github mr-3 ml-2"></i>
       </a>
       <a href="https://www.linkedin.com/in/shajalalhazari1/" target="_blank">
         <i class="fab fa-linkedin-in mr-3"></i>
@@ -74,7 +96,7 @@
         <i class="fab fa-stack-overflow mr-3"></i>
       </a>
       <a href="https://www.pinterest.com/shahjalalhazari1/_saved/" target="_blank">
-        <i class="fab fa-pinterest-p mr-3"></i>
+        <i class="fab fa-pinterest-p mr-2"></i>
       </a>
     </div>
     <!-- Social icons -->
