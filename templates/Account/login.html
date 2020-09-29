@@ -16,30 +16,28 @@
                         <h2>Welcome Back!</h2>
                     </div>
                     <div class="card-body">
-                        <form method="POST" action="{% url 'account:signup' %}" class="pt-4 pb-4">
+                        <form method="POST" action="{% url 'account:user_login' %}" class="pt-4 pb-4">
                             {% csrf_token %}
                             <div class="form-group">
-                                <input class="form-control" type="email" name="email" value="{{ data.email }}" placeholder="Email">
+                                <input class="form-control" type="email" name="email" value="{{ data.email }}" required placeholder="Email">
                             </div>
                             <div class="form-group">
-                                <input class="form-control" type="password" name="password1" placeholder="Passowrd">
+                                <input class="form-control" type="password" name="password" required placeholder="Passowrd">
                             </div>
                             <div class="button">
-                                <input type="submit" class="btn btn-primary btn-md btn-block" value="Create Account">
+                                <input type="submit" class="btn btn-primary btn-md btn-block" value="Login">
                             </div>
                         </form>
                     </div>
                     <div class="card-footer text-center">
-                        <small class="py-3 text-muted">
-                            By signing up, you agree to our Terms and Conditions.
-                        </small>
+                        <h6 class="mt-1">Forgot Password? <a href="#">Click here</a></h6>
                     </div>
                 </div>
                 <div class="card mt-3 text-center">
-                    <div class="card-body">
-                        <h5>Already have an account?
+                    <div class="card-body mt-2">
+                        <h5>Don't have an account?
                             <br>
-                            <a href="#" style="font-weight:800; padding-top:10px;">Login Here</a>
+                            <a href="{% url 'account:signup' %}">Sign up</a>
                         </h5>
                     </div>
                 </div>

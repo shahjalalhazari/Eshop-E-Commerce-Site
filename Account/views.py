@@ -1,5 +1,3 @@
-#FOR EMAIL VALIDATION
-import validate_email
 #FOR EMAIL ACTIVATION
 from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
@@ -25,9 +23,6 @@ class SignupView(View):
     def post(self, request):
         context={'data': 'request.POST', 'has_error': False}
         email = request.POST.get('email')
-        if not validate_email(email, check_mx=True): #check is this email valid or not
-            messages.add_message(request, messages.WARNING, "Please enter a valid email")
-            context['has_error'] = True
         if User.objects.filter(email=email).exists(): #is email exists or not
             messages.add_message(request, messages.WARNING, "Email is taken. Please log in")
             context['has_error'] = True
@@ -76,6 +71,22 @@ def activate(request, uid, token):
 
 def login_page(request):
     return render(request, 'Account/login.html', {})
+
+def user_login(request):
+    if request.method == "POST":
+        email = request.POST.get("email")
+        password = request.POST.get("password")
+        user = authenticate(username=email, password=password)
+        try:
+            user = get_object_or_404(User, pk=user.id)
+            if user is not None:
+                login(request, user)
+                messages.info(request, "You're logged in!")
+                return redirect('account:home')
+        except UserDoseNotExists:
+            messages.error(request, "Invalid user. Please sign up.")
+            return redirect("account:login")
+
 
 
 def index(request):
