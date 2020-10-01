@@ -4,9 +4,13 @@ from django.template.loader import render_to_string
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_text, DjangoUnicodeDecodeError
 from .token import activation_token
-from django.core.mail import send_mail, EmailMessage
+from django.core.mail import send_mail, BadHeaderError
 from django.conf import settings
-#------------
+#FOR PASSWORD RESET
+from django.contrib.auth.forms import PasswordResetForm
+from django.db.models.query_utils import Q
+from django.contrib.auth.tokens import default_token_generator
+# ----------------
 from django.shortcuts import render, HttpResponseRedirect, redirect, HttpResponse, Http404, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
@@ -14,8 +18,9 @@ from django.contrib import messages
 from django.contrib.auth import login, logout, authenticate
 from django.views.generic import View
 from .models import User, Profile
+from .forms import CustomPasswordResetForm
 
-# Create your views here.
+# SIGNUP VIEW WITH EMAIL ACTIVATION
 class SignupView(View):
     def get(self, request):
         return render(request, 'Account/signup.html')
@@ -24,7 +29,7 @@ class SignupView(View):
         context={'data': 'request.POST', 'has_error': False}
         email = request.POST.get('email')
         if User.objects.filter(email=email).exists(): #is email exists or not
-            messages.add_message(request, messages.WARNING, "Email is taken. Please log in")
+            messages.add_message(request, messages.WARNING, "Email is already taken.")
             context['has_error'] = True
         password1 = request.POST.get('password1')
         password2 = request.POST.get('password2')
@@ -55,6 +60,7 @@ class SignupView(View):
         return HttpResponse("<h2>Thanks for your registration. A confirmation link was send to your email.</h2>")
 
 
+#SIGNUP EMAIL ACTIVATION VIEW
 def activate(request, uid, token):
     try:
         user = get_object_or_404(User, pk=uid)
@@ -69,23 +75,61 @@ def activate(request, uid, token):
         return HttpResponse("<h3>Invalid activation link.</h3>")
 
 
+#LOGIN PAGE VIEW
 def login_page(request):
     return render(request, 'Account/login.html', {})
 
+
+#USER LOGIN VIEW
 def user_login(request):
     if request.method == "POST":
         email = request.POST.get("email")
         password = request.POST.get("password")
         user = authenticate(username=email, password=password)
-        try:
-            user = get_object_or_404(User, pk=user.id)
-            if user is not None:
-                login(request, user)
-                messages.info(request, "You're logged in!")
-                return redirect('account:home')
-        except UserDoseNotExists:
-            messages.error(request, "Invalid user. Please sign up.")
-            return redirect("account:login")
+        if user is not None:
+            login(request, user)
+            messages.add_message(request, messages.INFO, "You're logged in!")
+            return redirect('account:home')
+        else:
+            messages.add_message(request, messages.WARNING, "Invalid Email and Password")
+            return redirect('account:login')
+
+
+#USER PROFILE VIEW
+@login_required
+def profile(request):
+    pass
+
+
+#PASSWORD RESET VIEW
+def password_reset_request(request):
+	if request.method == "POST":
+		password_reset_form = CustomPasswordResetForm(request.POST)
+		if password_reset_form.is_valid():
+			data = password_reset_form.cleaned_data['email']
+			associated_users = User.objects.filter(Q(email=data))
+			if associated_users.exists():
+				for user in associated_users:
+					subject = "Password Reset Requested"
+					email_template_name = "Account/Password/Password_reset_email.txt"
+					c = {
+					"email":user.email,
+					'domain':'127.0.0.1:8000',
+					'site_name': 'Eshop',
+					"uid": urlsafe_base64_encode(force_bytes(user.pk)),
+					'token': default_token_generator.make_token(user),
+					'protocol': 'http',
+					}
+					email = render_to_string(email_template_name, c)
+					try:
+						send_mail(subject, email, '' , [user.email], fail_silently=False)
+					except BadHeaderError:
+						return HttpResponse('Invalid header found.')
+					messages.success(request, 'A message with reset password instructions has been sent to your inbox.')
+					return redirect("account:home")
+			messages.warning(request, 'An invalid email has been entered.')
+	password_reset_form = CustomPasswordResetForm()
+	return render(request=request, template_name="Account/Password/password_reset.html", context={"password_reset_form":password_reset_form})
 
 
 
@@ -93,6 +137,7 @@ def index(request):
     return render(request, 'Store/index.html', {})
 
 
+#LOGOUT VIEW
 @login_required
 def logout_user(request):
     logout(request)

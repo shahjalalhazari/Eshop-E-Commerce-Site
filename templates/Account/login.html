@@ -12,7 +12,7 @@
             <div class="col-md-1"></div>
             <div class="col-md-10">
                 <div class="card mt-5">
-                    <div class="card-header text-center pt-4 pb-4">
+                    <div class="card-header text-center pt-4 pb-3">
                         <h2>Welcome Back!</h2>
                     </div>
                     <div class="card-body">
@@ -24,13 +24,13 @@
                             <div class="form-group">
                                 <input class="form-control" type="password" name="password" required placeholder="Passowrd">
                             </div>
-                            <div class="button">
-                                <input type="submit" class="btn btn-primary btn-md btn-block" value="Login">
+                            <div class="text-center m-t-30">
+                                <button type="submit" class="btn btn-primary btn-md btn-block">Login</button>
                             </div>
                         </form>
                     </div>
                     <div class="card-footer text-center">
-                        <h6 class="mt-1">Forgot Password? <a href="#">Click here</a></h6>
+                        <h6 class="mt-1">Forgot Password? <a href="{% url 'account:password_reset' %}">Click here</a></h6>
                     </div>
                 </div>
                 <div class="card mt-3 text-center">
