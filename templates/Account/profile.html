@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block TitleBlock %}{{ request.user.email }}'s Profile - {% endblock  %}
+
+{% block BodyBlock %}
+<div class="p-t-50 p-b-20">
+  <div class="card">
+    <div class="row no-gutters">
+      <div class="col-md-4">
+        <img
+          src="https://images.pexels.com/photos/3585648/pexels-photo-3585648.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+          class="card-img" alt="Profile Pic" style="width:100%; height:100%;">
+      </div>
+      <div class="col-md-8">
+        <div class="card-body" style="margin:20px 20px;">
+          <form method="POST">
+            {% csrf_token %}
+            <div class="form-row">
+              <div class="form-group col-md-6 p-t-20">
+                {{ form.username }}
+              </div>
+              <div class="form-group col-md-6 p-t-20">
+                {{ form.fullname }}
+              </div>
+            </div>
+            <div class="form-group p-t-20">
+              {{ form.address_1 }}
+            </div>
+            <div class="form-group p-t-20">
+              {{ form.address_2 }}
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-5 p-t-20">
+                {{ form.city }}
+              </div>
+              <div class="form-group col-md-5 p-t-20">
+                {{ form.division }}
+              </div>
+              <div class="form-group col-md-2 p-t-20">
+                {{ form.zipcode }}
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-7 p-t-20">
+                <div class="input-group is-invalid">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">+880</span>
+                </div>
+                {{ form.phone }}
+              </div>
+              </div>
+              <div class="form-group col-md-5 p-t-20">
+                {{ form.country }}
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary m-t-30 m-b-20">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock  %}

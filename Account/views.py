@@ -18,7 +18,7 @@ from django.contrib import messages
 from django.contrib.auth import login, logout, authenticate
 from django.views.generic import View
 from .models import User, Profile
-from .forms import CustomPasswordResetForm
+from .forms import CustomPasswordResetForm, ProfileForm
 
 # SIGNUP VIEW WITH EMAIL ACTIVATION
 class SignupView(View):
@@ -57,7 +57,8 @@ class SignupView(View):
         to_list = [email]
         from_email = settings.EMAIL_HOST_USER
         send_mail(email_sub, email_message, from_email, to_list, fail_silently=True)
-        return HttpResponse("<h2>Thanks for your registration. A confirmation link was send to your email.</h2>")
+        messages.add_message(request, messages.SUCCESS, "Thanks for your registration. A confirmation link has been send to your email.")
+        return redirect("account:home")
 
 
 #SIGNUP EMAIL ACTIVATION VIEW
@@ -93,12 +94,6 @@ def user_login(request):
         else:
             messages.add_message(request, messages.WARNING, "Invalid Email and Password")
             return redirect('account:login')
-
-
-#USER PROFILE VIEW
-@login_required
-def profile(request):
-    pass
 
 
 #PASSWORD RESET VIEW
@@ -143,3 +138,17 @@ def logout_user(request):
     logout(request)
     messages.warning(request, 'You are logged out!')
     return HttpResponseRedirect(reverse('account:home'))
+
+
+#USER PROFILE VIEW
+@login_required
+def profile(request):
+    profile = Profile.objects.get(user=request.user)
+    form = ProfileForm(instance=profile)
+    if request.method == "POST":
+        form = ProfileForm(request.POST, instance=profile)
+        if form.is_valid():
+            form.save()
+            form = ProfileForm(instance=profile)
+            messages.success(request, 'Changed Successfully!!!')
+    return render(request, 'Account/profile.html', {'form':form})

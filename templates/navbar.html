@@ -27,7 +27,7 @@
                             Profile
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="{% url 'account:profile' %}">Profile</a></li>
+                            <li><a class="dropdown-item" href="{% url 'account:profile' %}">{{ request.user.email }}</a></li>
                             <li><a class="dropdown-item" href="#">Orders</a></li>
                             <li><hr class="dropdown-divider" /></li>
                             <li><a class="dropdown-item" href="{% url 'account:logout' %}">Logout</a></li>
@@ -54,7 +54,7 @@
                     </li>
                     {% if request.user.is_staff %}
                         <li class="nav-item">
-                            <a href="#" class="nav-link border border-light rounded waves-effect ml-1" target="_blank">
+                            <a href="http://127.0.0.1:8000/admin/" class="nav-link border border-light rounded waves-effect ml-1" target="_blank">
                                 <i class="fas fa-chart-line"></i> DB
                             </a>
                         </li>
