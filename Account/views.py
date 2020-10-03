@@ -7,7 +7,7 @@ from .token import activation_token
 from django.core.mail import send_mail, BadHeaderError
 from django.conf import settings
 #FOR PASSWORD RESET
-from django.contrib.auth.forms import PasswordResetForm
+from django.contrib.auth.forms import PasswordResetForm, PasswordChangeForm
 from django.db.models.query_utils import Q
 from django.contrib.auth.tokens import default_token_generator
 # ----------------
@@ -127,7 +127,6 @@ def password_reset_request(request):
 	return render(request=request, template_name="Account/Password/password_reset.html", context={"password_reset_form":password_reset_form})
 
 
-
 def index(request):
     return render(request, 'Store/index.html', {})
 
@@ -152,3 +151,17 @@ def profile(request):
             form = ProfileForm(instance=profile)
             messages.success(request, 'Changed Successfully!!!')
     return render(request, 'Account/profile.html', {'form':form})
+
+
+# PASSWORD CHANGE VIEW
+@login_required
+def change_pass(request):
+    current_user = request.user
+    form = PasswordChangeForm(current_user)
+    if request.method == "POST":
+        form = PasswordChangeForm(current_user, data=request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Password Changed Successfully!')
+            return redirect("account:profile")
+    return render(request, 'Account/change_pass.html', {'form':form})
