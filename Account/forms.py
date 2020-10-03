@@ -13,15 +13,14 @@ class CustomPasswordResetForm(PasswordResetForm):
 
 #PROFILE FORM
 class ProfileForm(forms.ModelForm):
-    username = forms.CharField(label="", widget=forms.TextInput(attrs={'class': "form-control", 'placeholder': "Username"}))
-    fullname = forms.CharField(label="", widget=forms.TextInput(attrs={'class': "form-control", 'placeholder': "Fullname"}))
-    address_1 = forms.CharField(label="", widget=forms.TextInput(attrs={'class': "form-control", 'placeholder': "Address: [1234 Main St]"}))
-    address_2 = forms.CharField(label="", widget=forms.TextInput(attrs={'class': "form-control", 'placeholder': "'Optional' Address 2: [Apartment, studio, or floor]"}))
-    city = forms.CharField(label="", widget=forms.TextInput(attrs={'class': "form-control", 'placeholder': "City"}))
-    division = forms.CharField(label="",widget=forms.TextInput(attrs={'class': "form-control", 'placeholder': "Division"}))
-    zipcode = forms.CharField(label="", widget=forms.TextInput(attrs={'class': "form-control", 'placeholder': "Zip Code"}))
-    phone = forms.CharField(label="", widget=forms.TextInput(attrs={'class': "form-control", 'placeholder': "Phone Number"}))
-    country = forms.CharField(label="", widget=forms.TextInput(attrs={'class': "form-control", 'value': "Bangladesh", 'readonly': 'readonly'}))
+    username = forms.CharField(required=False, widget=forms.TextInput(attrs={'class': "form-control"}))
+    fullname = forms.CharField(label="", required=False, widget=forms.TextInput(attrs={'class': "form-control"}))
+    address_1 = forms.CharField(label="", required=False, widget=forms.TextInput(attrs={'class': "form-control"}))
+    address_2 = forms.CharField(label="", required=False, widget=forms.TextInput(attrs={'class': "form-control"}))
+    city = forms.CharField(label="", required=False, widget=forms.TextInput(attrs={'class': "form-control"}))
+    zipcode = forms.CharField(label="", required=False, widget=forms.TextInput(attrs={'class': "form-control"}))
+    phone = forms.CharField(label="", required=False, widget=forms.TextInput(attrs={'class': "form-control"}))
+    country = forms.CharField(label="", required=False, widget=forms.TextInput(attrs={'class': "form-control", 'value': "Bangladesh", 'readonly': 'readonly'}))
     class Meta:
         model = Profile
-        fields = ['username', 'fullname', 'address_1', 'address_2', 'city', 'division', 'zipcode', 'phone', 'country']
+        fields = ['username', 'fullname', 'address_1', 'address_2', 'city', 'zipcode', 'phone', 'country']

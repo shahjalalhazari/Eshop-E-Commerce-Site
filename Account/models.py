@@ -60,7 +60,6 @@ class Profile(models.Model):
     address_1 = models.CharField(max_length=300, blank=True)
     address_2 = models.CharField(max_length=300, blank=True)
     city = models.CharField(max_length=50, blank=True)
-    division = models.CharField(max_length=50, blank=True)
     zipcode = models.CharField(max_length=10, blank=True)
     phone = models.CharField(max_length=20, blank=True)
     country = models.CharField(max_length=50, blank=True)
