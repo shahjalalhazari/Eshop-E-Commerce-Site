@@ -26,6 +26,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'Account',
+    'Store',
     'crispy_forms',
 ]
 
@@ -95,7 +96,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Dhaka'
 
 USE_I18N = True
 
@@ -116,7 +117,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 #LOGIN REDIRECT URL
-LOGIN_URL = '/login/'
+LOGIN_URL = '/account/login/'
 
 
 #CUSTOM USER MODEL

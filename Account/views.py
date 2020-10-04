@@ -58,7 +58,7 @@ class SignupView(View):
         from_email = settings.EMAIL_HOST_USER
         send_mail(email_sub, email_message, from_email, to_list, fail_silently=True)
         messages.add_message(request, messages.SUCCESS, "Thanks for your registration. A confirmation link has been send to your email.")
-        return redirect("account:home")
+        return redirect("store:home")
 
 
 #SIGNUP EMAIL ACTIVATION VIEW
@@ -90,7 +90,7 @@ def user_login(request):
         if user is not None:
             login(request, user)
             messages.add_message(request, messages.INFO, "You're logged in!")
-            return redirect('account:home')
+            return redirect('store:home')
         else:
             messages.add_message(request, messages.WARNING, "Invalid Email and Password")
             return redirect('account:login')
@@ -121,14 +121,10 @@ def password_reset_request(request):
 					except BadHeaderError:
 						return HttpResponse('Invalid header found.')
 					messages.success(request, 'A message with reset password instructions has been sent to your inbox.')
-					return redirect("account:home")
+					return redirect("store:home")
 			messages.warning(request, 'An invalid email has been entered.')
 	password_reset_form = CustomPasswordResetForm()
 	return render(request=request, template_name="Account/Password/password_reset.html", context={"password_reset_form":password_reset_form})
-
-
-def index(request):
-    return render(request, 'Store/index.html', {})
 
 
 #LOGOUT VIEW
@@ -136,7 +132,7 @@ def index(request):
 def logout_user(request):
     logout(request)
     messages.warning(request, 'You are logged out!')
-    return HttpResponseRedirect(reverse('account:home'))
+    return HttpResponseRedirect(reverse('store:home'))
 
 
 #USER PROFILE VIEW
