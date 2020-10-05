@@ -16,15 +16,12 @@ class HomeView(ListView):
         return context
 
 
-#PRODUCT LIST VIEW
-class ProductListView(ListView):
-    model = Item
-    paginate_by = 30
-    template_name = 'Store/products.html'
-    def get_context_data (self, ** kwargs):
-        context = super (). get_context_data (** kwargs)
-        context ['categories'] = Category.objects.all()
-        return context
+#ITEM LIST BY THEIR CATEGORY VIEW
+def item_by_cats(request, cats_id):
+    cates_info = Category.objects.get(pk=cats_id)
+    items = Item.objects.filter(category=cats_id)
+    categories = Category.objects.all()
+    return render(request, 'Store/item_by_cats.html', {'items': items, 'cates_info': cates_info, 'categories': categories})
 
 
 #PRODUCT DETAIL VIEW

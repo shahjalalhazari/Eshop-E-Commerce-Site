@@ -18,9 +18,6 @@
                 <li class="nav-item active">
                     <a class="nav-link waves-effect" href="{% url 'store:home' %}">Home</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link waves-effect" href="{% url 'store:products' %}">Products</a>
-                </li>
                 {% if request.user.is_authenticated %}
                     <li class="nav-item mr-3 mr-lg-0 dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">

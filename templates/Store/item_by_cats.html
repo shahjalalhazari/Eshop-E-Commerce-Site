@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block TitleBlock %}{{ cates_info.name }} - {% endblock %}
 
 {% block BodyBlock %}
 <!-- navbar -->
@@ -8,13 +9,13 @@
 <!-- navbar -->
 
   <!-- Title -->
-  <h3 class="font-weight-bold m-t-30">Features Products:</h3>
+  <h3 class="font-weight-bold m-t-30">{{ cates_info.name }}:</h3>
   <!-- Title -->
 
   <!--Section: Products v.3-->
   <section class="text-center m-t-30 m-b-30">
     <div class="row wow fadeIn">
-    {% for item in object_list %}
+    {% for item in items %}
       <div class="col-lg-4 col-md-6 mb-4">
         <div class="card m-b-10">
           <div class="bg-image hover-overlay ripple product-cart" data-ripple-color="light">
@@ -24,7 +25,7 @@
             </a>
           </div>
           <div class="card-body">
-            <a href="{% url 'store:item_by_cats' cats_id=item.category.pk %}" class="grey-text">
+            <a href="" class="grey-text">
               <h5>{{ item.category }}</h5>
             </a>
             <h5 class="p-t-10"><strong>
