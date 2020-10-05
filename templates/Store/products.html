@@ -2,6 +2,9 @@
 {% load static %}
 
 
+{% block TitleBlock %}All Products - {% endblock %}
+
+
 {% block BodyBlock %}
   <!--Navbar-->
   <nav class="navbar navbar-expand-lg navbar-dark bg-primary lighten-3 m-t-50">
@@ -51,27 +54,26 @@
             <a href="" class="grey-text">
               <h5>{{ item.category }}</h5>
             </a>
-            <h5 class="p-t-10"><strong>
-              <a href="{% url 'store:product' pk=item.pk %}" class="dark-grey-text">{{ item.item_name }}</a>
-            </strong></h5>
-            {% if item.get_label_display == 'New' %}
-            <a href="#">
-              <span class="badge danger-color">{{ item.get_label_display }}</span>
-            </a>
-            {% else %}
-            <a href="#">
-              <span class="badge primary-color">{{ item.get_label_display }}</span>
-            </a>
-            {% endif %}
+            <h5 class="p-t-10">
+              <strong>
+                <a href="#" class="dark-grey-text">{{ item.item_name }}
+                  {% if item.get_label_display == 'New' %}
+                    <span class="badge badge-pill danger-color">{{ item.get_label_display }}</span>
+                  {% else %}
+                    <span class="badge badge-pill primary-color">{{ item.get_label_display }}</span>
+                  {% endif %}
+                </a>
+              </strong>
+            </h5>
             <h5 class="font-weight-bold blue-text p-t-10">
               <strong>
                 &#2547; {{ item.price | floatformat:2 }}
                 {% if item.old_price %}
-                  <strike class="grey-text m-l-5">&#2547; {{ item.old_price }}</strike>
+                  <strike class="grey-text">&#2547; {{ item.old_price }}</strike>
                 {% endif %}
               </strong>
             </h5>
-            <button type="button" class="btn btn-sm btn-info m-t-10">Add to cart</button>
+            <button type="button" class="btn btn-sm btn-primary m-t-10">Add to cart</button>
           </div>
         </div>
       </div>
@@ -80,11 +82,27 @@
   </section>
   <!--Section: Products v.3-->
 
-  <!--Button-->
-  <div class="button text-center">
-    <a href="{% url 'store:products' %}">
-      <button type="button" class="btn btn-lg btn-dark">See More</button>
-    </a>
-  </div>
-  <!--Button-->
+  <!--Pagination-->
+  {% if is_paginated %}
+    <nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+    {% if page_obj.has_previous %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{ page_obj.previous_page_number }}" tabindex="-1" aria-disabled="true">&#60;&#60;</a>
+      </li>
+    {% endif %}
+      <li class="page-item active" aria-current="page">
+        <a class="page-link" href="?page={{ page_obj.number }}">{{ page_obj.number }}
+          <span class="sr-only">(current)</span>
+        </a>
+      </li>
+    {% if page_obj.has_next %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{ page_obj.next_page_number }}">&#62;&#62;</a>
+      </li>
+    {% endif %}
+    </ul>
+  </nav>
+  {% endif %}
+  <!--Pagination-->
 {% endblock %}

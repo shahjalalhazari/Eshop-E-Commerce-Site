@@ -27,7 +27,7 @@ class Item(models.Model):
     description = models.TextField()
     price = models.FloatField()
     old_price = models.FloatField(default=0.00)
-    label = models.CharField(choices=LABEL, max_length=2)
+    label = models.CharField(choices=LABEL, max_length=2, blank=True)
     created = models.DateTimeField(auto_now_add=True)
     def __str__(self):
         return self.item_name
