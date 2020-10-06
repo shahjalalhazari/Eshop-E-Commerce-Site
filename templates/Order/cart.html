@@ -34,17 +34,18 @@
                                 <h6 class="font-weight-bold">
                                     {{ cart.item.item_name }}
                                 </h6>
-                                Category/Brand
+                                Category: {{ cart.item.category }} <br>
+                                Brand:
                             </td>
                             <td class="font-weight-bold">&#2547; {{ cart.item.price }}</td>
                             <td>
-                                <a href="#" class="mr-2">
+                                <a href="{% url 'order:dec_qty' pk=cart.item.pk %}" class="mr-2">
                                     <span class="badge badge-primary">
                                         <i class="fas fa-minus"></i>
                                     </span>
                                 </a>
                                 <span class="font-weight-bold">{{ cart.quantity }}</span>
-                                <a href="#" class="ml-2">
+                                <a href="{% url 'order:inc_qty' pk=cart.item.pk %}" class="ml-2">
                                     <span class="badge badge-primary">
                                         <i class="fas fa-minus"></i>
                                     </span>
@@ -52,7 +53,7 @@
                             </td>
                             <td class="font-weight-bold">&#2547; {{ cart.get_total }}</td>
                             <td>
-                                <a href="#" class="btn btn-danger btn-sm">
+                                <a href="{% url 'order:remove' pk=cart.item.pk %}" class="btn btn-danger btn-sm">
                                     <i class="fas fa-trash-alt"></i>
                                 </a>
                             </td>
@@ -68,7 +69,7 @@
                         <th scope="row"></th>
                         <td colspan="6" class="text-right">
                             <a href="{% url 'store:home' %}" class="btn btn-warning mr-4">Continue Shopping</a>
-                            <a href="#" class="btn btn-success ml-4">Proceed To Checkout</a>
+                            <a href="{% url 'order:checkout' %}" class="btn btn-success ml-4">Proceed To Checkout</a>
                         </td>
                     </tr>
                 </tbody>

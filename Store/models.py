@@ -33,9 +33,3 @@ class Item(models.Model):
         return self.item_name
     class Meta:
         ordering = ['-created']
-    def get_absolute_url(self):
-        return reverse("store:product", kwargs={"pk" : self.pk})
-    def get_add_to_cart_url(self):
-        return reverse("store:add-to-cart", kwargs={"pk" : self.pk})
-    def get_remove_from_cart_url(self):
-        return reverse("store:remove-from-cart", kwargs={"pk" : self.pk})
