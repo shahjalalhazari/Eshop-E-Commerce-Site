@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block TitleBlock %}Cart - {% endblock %}
+
+{% block  BodyBlock %}
+<section class="m-t-30">
+<div class="">
+    <h3>Your Cart:</h3>
+</div>
+<div class="card card-ecommerce m-t-20">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table product-table table-hover text-center">
+                <thead class="mdb-color lighten-5">
+                    <tr>
+                        <th scope="col" width="3%"><strong>#</strong></th>
+                        <th scope="col" width="5%"><strong>Product</strong></th>
+                        <th scope="col" width="15%"><strong>Name</strong></th>
+                        <th scope="col" width="3%"><strong>Price</strong></th>
+                        <th scope="col" width="3%"><strong>Quantity</strong></th>
+                        <th scope="col" width="3%"><strong>Amount</strong></th>
+                        <th scope="col" width="3%"><strong>Remove</strong></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for cart in carts %}
+                        <tr>
+                            <th scope="row">{{ forloop.counter }}</th>
+                            <td class="cart-image">
+                                <img src="/media/{{ cart.item.main_image }}" alt="">
+                            </td>
+                            <td>
+                                <h6 class="font-weight-bold">
+                                    {{ cart.item.item_name }}
+                                </h6>
+                                Category/Brand
+                            </td>
+                            <td class="font-weight-bold">&#2547; {{ cart.item.price }}</td>
+                            <td>
+                                <a href="#" class="mr-2">
+                                    <span class="badge badge-primary">
+                                        <i class="fas fa-minus"></i>
+                                    </span>
+                                </a>
+                                <span class="font-weight-bold">{{ cart.quantity }}</span>
+                                <a href="#" class="ml-2">
+                                    <span class="badge badge-primary">
+                                        <i class="fas fa-minus"></i>
+                                    </span>
+                                </a>
+                            </td>
+                            <td class="font-weight-bold">&#2547; {{ cart.get_total }}</td>
+                            <td>
+                                <a href="#" class="btn btn-danger btn-sm">
+                                    <i class="fas fa-trash-alt"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    <tr>
+                        <th scope="row"></th>
+                        <td colspan="4" class="font-weight-bold text-right"><h4>Total:</h4></td>
+                        <td class="font-weight-bold"><h4>&#2547; {{ order.get_totals | floatformat:2 }}</h4></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th scope="row"></th>
+                        <td colspan="6" class="text-right">
+                            <a href="{% url 'store:home' %}" class="btn btn-warning mr-4">Continue Shopping</a>
+                            <a href="#" class="btn btn-success ml-4">Proceed To Checkout</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</section>
+
+{% endblock %}

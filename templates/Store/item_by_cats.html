@@ -8,12 +8,11 @@
 {% include 'Store/navbar2.html' %}
 <!-- navbar -->
 
-  <!-- Title -->
-  <h3 class="font-weight-bold m-t-30">{{ cates_info.name }}:</h3>
-  <!-- Title -->
-
-  <!--Section: Products v.3-->
-  <section class="text-center m-t-30 m-b-30">
+<!-- Title -->
+<h3 class="font-weight-bold m-t-30">{{ cates_info.name }}:</h3>
+<!-- Title -->
+<!--Section: Products v.3-->
+<section class="text-center m-t-30 m-b-30">
     <div class="row wow fadeIn">
     {% for item in items %}
       <div class="col-lg-4 col-md-6 mb-4">
@@ -48,36 +47,14 @@
                 {% endif %}
               </strong>
             </h5>
-            <button type="button" class="btn btn-sm btn-info m-t-10">Add to cart</button>
+            <a href="{% url 'order:add' pk=item.pk %}">
+              <button type="button" class="btn btn-sm btn-info m-t-10">Add to cart</button>
+            </a>
           </div>
         </div>
       </div>
       {% endfor %}
     </div>
-  </section>
-  <!--Section: Products v.3-->
-
-  <!--Pagination-->
-  {% if is_paginated %}
-    <nav aria-label="Page navigation example">
-      <ul class="pagination justify-content-center">
-      {% if page_obj.has_previous %}
-        <li class="page-item">
-          <a class="page-link" href="?page={{ page_obj.previous_page_number }}" tabindex="-1" aria-disabled="true">&#60;&#60;</a>
-        </li>
-      {% endif %}
-        <li class="page-item active" aria-current="page">
-          <a class="page-link" href="?page={{ page_obj.number }}">{{ page_obj.number }}
-            <span class="sr-only">(current)</span>
-          </a>
-        </li>
-      {% if page_obj.has_next %}
-        <li class="page-item">
-          <a class="page-link" href="?page={{ page_obj.next_page_number }}">&#62;&#62;</a>
-        </li>
-      {% endif %}
-      </ul>
-    </nav>
-  {% endif %}
-  <!--Pagination-->
+</section>
+<!--Section: Products v.3-->
 {% endblock %}

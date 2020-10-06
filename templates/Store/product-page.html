@@ -32,7 +32,7 @@
             <span class="badge primary-color">{{ item.get_label_display }}</span>
           {% endif %}
         </div>
-        <a href="#" class="btn btn-md btn-outline-primary text-uppercase">
+        <a href="{% url 'order:add' pk=object.pk %}" class="btn btn-md btn-outline-primary text-uppercase">
           <i class="fas fa-shopping-cart ml-1"></i> add to cart
         </a>
         <h4 class="font-font-weight-bold m-t-20">
