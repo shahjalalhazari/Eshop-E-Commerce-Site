@@ -111,14 +111,3 @@ def dec_qty(request, pk):
     else:
         messages.warning(request, "You don't have an active order.")
         return redirect('store:home')
-
-
-
-
-
-
-
-
-
-def checkout(request):
-    return render(request, 'Store/checkout.html')

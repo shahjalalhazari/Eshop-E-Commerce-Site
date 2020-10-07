@@ -69,7 +69,7 @@ class Profile(models.Model):
         return "{}'s profile".format(self.user)
     
     def is_fully_filled(self):
-        field_names = [f.name for f in self._meta.get_field()]
+        field_names = [f.name for f in self._meta.get_fields()]
         for field_name in field_names:
             value = getattr(self, field_name)
             if value is None or value =='':

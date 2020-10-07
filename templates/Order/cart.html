@@ -47,7 +47,7 @@
                                 <span class="font-weight-bold">{{ cart.quantity }}</span>
                                 <a href="{% url 'order:inc_qty' pk=cart.item.pk %}" class="ml-2">
                                     <span class="badge badge-primary">
-                                        <i class="fas fa-minus"></i>
+                                        <i class="fas fa-plus"></i>
                                     </span>
                                 </a>
                             </td>
@@ -69,7 +69,7 @@
                         <th scope="row"></th>
                         <td colspan="6" class="text-right">
                             <a href="{% url 'store:home' %}" class="btn btn-warning mr-4">Continue Shopping</a>
-                            <a href="{% url 'order:checkout' %}" class="btn btn-success ml-4">Proceed To Checkout</a>
+                            <a href="{% url 'payment:checkout' %}" class="btn btn-success ml-4">Proceed To Checkout</a>
                         </td>
                     </tr>
                 </tbody>
