@@ -41,7 +41,7 @@ def payment(request):
     if not request.user.profile.is_fully_filled():
         messages.warning(request, "Please complete profile details!")
         return redirect("account:profile")
-    mypayment = SSLCSession(sslc_is_sandbox=True, sslc_store_id='eshop5f7d8f3d714de', sslc_store_pass='eshop5f7d8f3d714de@ssl')
+    mypayment = SSLCSession(sslc_is_sandbox=True, sslc_store_id='#', sslc_store_pass='#')
     status_url = request.build_absolute_uri(reverse("payment:status"))
     mypayment.set_urls(success_url=status_url, fail_url=status_url, cancel_url=status_url, ipn_url=status_url)
     order_qs = Order.objects.filter(user=request.user, ordered=False)
